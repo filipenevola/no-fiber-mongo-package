@@ -1,4 +1,4 @@
-### Testing Meteor Mongo package without Fibers
+### Testing Mongo package without Fibers
 
 This is not a real app.
 
