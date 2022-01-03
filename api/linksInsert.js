@@ -3,11 +3,11 @@ import { Mongo } from "meteor/mongo";
 
 const { createAsyncCollection } = Mongo;
 
-export const linksConnector = createAsyncCollection("links");
+export const linksCollection = Mongo.Collection.create("links");
 async function insertLink({ title, url }) {
   console.log(`insertLink`);
 
-  const promise = await (await linksConnector).insertAsync({
+  const promise = await linksCollection.insertAsync({
     title,
     url,
     createdAt: new Date()

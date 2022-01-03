@@ -1,18 +1,26 @@
 import { Meteor } from "meteor/meteor";
-import {Mongo} from 'meteor/mongo';
 
-import {linksConnector } from '/api/linksInsert';
+import {linksCollection } from '/api/linksInsert';
 
 
-// Meteor.publish("links", async () => (await LinksCollectionAsync).find());
+const collection = new Mongo.Collection('myCollection');
+const collAsync = Mongo.Collection.create('myCollection');
+console.log('test 1');
+
+new Mongo.Collection('myCollection2');
+new Mongo.Collection('myCollection2');
+console.log('test 2');
+
+Mongo.Collection.create('myCollection3');
+Mongo.Collection.create('myCollection3');
+console.log('test 3');
+
 Meteor.publish("linksAsync", async () => {
-  const coll = await linksConnector;
-  console.log(`coll.findAsync`, coll.findAsync);
+  const linksCursor = linksCollection.find();
+  const links= await linksCursor.fetchAsync();
+  // console.log(`links`, links);
 
-  const links = await coll.findAsync();
-  console.log(`links`, links.fetch());
-
-  return links;
+  return linksCursor;
 });
 
 Meteor.startup(async () => {
